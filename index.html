@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KMAT Kerala Practice Test — MBA Entrance Practice Console</title>
+  
+  <!-- Google Fonts for Editorial & Tech Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS Via Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS for interactive animations and modern styling -->
+  <style>
+    /* Custom Scrollbar for smooth exam navigation */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Keyframe Animations for smooth Question Entry */
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .question-anim {
+      animation: fadeInSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    /* Option Checked Ripple styling */
+    .option-checked {
+      border-color: #4f46e5 !important;
+      background-color: #f5f3ff !important;
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header id="exam-header" class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between py-4 gap-4">
+        <!-- Logo and Titles -->
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-800 flex items-center justify-center font-bold text-white text-xl shadow-md shadow-indigo-200">
+            K
+          </div>
+          <div class="text-center sm:text-left">
+            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">KMAT Kerala Practice Test</h1>
+            <p class="text-sm text-slate-505 font-medium tracking-wide flex items-center gap-1.5 justify-center sm:justify-start">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+              MBA Entrance Practice Questions
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Side: Candidate metadata/mock profile -->
+        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 p-2.5 rounded-xl w-full sm:w-auto">
+          <div class="w-10 h-10 rounded-full bg-indigo-100 border border-indigo-200 flex items-center justify-center font-semibold text-indigo-700">
+            AA
+          </div>
+          <div class="text-left text-xs">
+            <div class="font-semibold text-slate-800">Akhil Anil Kumar</div>
+            <div class="text-slate-500 font-mono">akhilanilkumar2004@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Testing Area / Review Dashboard Layout -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 font-sans">
+
+    <!-- TEST ACTIVE CONTAINER -->
+    <div id="test-container" class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+      
+      <!-- Left 3 Columns: Active Question and Section Selection -->
+      <div class="lg:col-span-3 flex flex-col gap-5">
+        
+        <!-- Section Selector Navigation Tabs -->
+        <div id="section-tabs" class="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap gap-1">
+          <!-- Dynamic section buttons go here -->
+        </div>
+
+        <!-- Question View Box -->
+        <div id="question-card" class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+          
+          <!-- Card Header Info -->
+          <div class="px-5 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+            <span id="current-section-badge" class="px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full text-xs font-semibold tracking-wide uppercase">
+              Section Loading...
+            </span>
+            <span id="question-index-label" class="text-sm font-semibold text-slate-500 font-mono">
+              Question -- of --
+            </span>
+          </div>
+
+          <!-- Question Content and Options -->
+          <div class="p-6 md:p-8 flex-1 flex flex-col gap-6">
+            <div id="question-text-container" class="question-anim text-lg md:text-xl font-medium text-slate-900 leading-relaxed">
+              <!-- Question Text gets loaded here -->
+            </div>
+
+            <!-- Options Div Container -->
+            <div id="options-container" class="grid grid-cols-1 gap-3.5 mt-2">
+              <!-- Choices rendering template -->
+            </div>
+          </div>
+
+          <!-- Card Navigation Bottom Controls -->
+          <div class="p-5 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button id="btn-previous" onclick="navigateQuestion(-1)" class="px-4 py-2.5 bg-white border border-slate-200 hover:border-slate-300 active:bg-slate-100 text-slate-700 rounded-xl font-medium text-sm transition-all duration-150 flex items-center gap-1.5 cursor-pointer select-none">
+                <svg class="w-4 h-4 text-slate-505" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Previous
+              </button>
+              <button id="btn-clear" onclick="clearSelectedOption()" class="px-3.5 py-2.5 text-slate-505 hover:text-slate-800 hover:bg-slate-100 rounded-xl font-medium text-sm transition-all duration-150 cursor-pointer select-none">
+                Clear Response
+              </button>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button id="btn-next" onclick="navigateQuestion(1)" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-sm transition-all duration-150 shadow-sm shadow-indigo-100 flex items-center gap-1.5 cursor-pointer select-none">
+                Next
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button id="btn-finish" onclick="confirmFinishPractice()" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold text-sm transition-all duration-150 shadow-sm shadow-red-100 flex items-center gap-1.5 cursor-pointer select-none">
+                Finish Practice
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Right 1 Column: Exam Status, Legend, Palette Grid -->
+      <div class="flex flex-col gap-6">
+
+        <!-- Legend and Quick Stats Card -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 flex flex-col gap-5">
+          <h2 class="text-base font-bold text-slate-900 border-b border-slate-150 pb-3">Exam Console Info</h2>
+          
+          <!-- Test Progress Bar -->
+          <div>
+            <div class="flex items-center justify-between text-xs font-semibold mb-2">
+              <span class="text-slate-505 uppercase tracking-wide">Overall Completed</span>
+              <span id="txt-percentage-complete" class="text-indigo-600">0% (0 / 26)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div id="bar-progress" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+
+          <!-- Color Legends -->
+          <div class="grid grid-cols-3 gap-2.5 text-center text-[11px] font-semibold text-slate-500">
+            <div class="p-2 border border-blue-100 rounded-xl bg-blue-50/50 flex flex-col items-center gap-1.5">
+              <span class="w-3.5 h-3.5 rounded-full bg-blue-600 shadow-sm"></span>
+              Active
+            </div>
+            <div class="p-2 border border-emerald-100 rounded-xl bg-emerald-50/50 flex flex-col items-center gap-1.5">
+              <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 shadow-sm"></span>
+              Attempted
+            </div>
+            <div class="p-2 border border-slate-200 rounded-xl bg-slate-50/30 flex flex-col items-center gap-1.5">
+              <span class="w-3.5 h-3.5 rounded-full bg-slate-200 shadow-xs border border-slate-300"></span>
+              Unattempted
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Palette Card -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 flex flex-col gap-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-bold text-slate-900 font-sans">Question Palette</h2>
+            <span id="palette-indicator" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">26 Total</span>
+          </div>
+
+          <p class="text-xs text-slate-400">Click a number bubble to jump directly to that question during the exam.</p>
+
+          <!-- Palette Container with Sections -->
+          <div id="palette-container" class="flex flex-col gap-4 mt-1">
+            <!-- Dynamic sections with grid bubbles go here -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- REVIEW RESULTS SUBMISSIONS CONTAINER (Initially Hidden) -->
+    <div id="review-container" class="hidden flex flex-col gap-8">
+      
+      <!-- Feedback Landing Row Card -->
+      <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between">
+        <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+          <div class="w-20 h-20 bg-emerald-50 rounded-full border-4 border-emerald-100 flex items-center justify-center text-emerald-505 shrink-0 shadow-inner">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">KMAT Practice Completed!</h2>
+            <p class="text-slate-505 mt-1 max-w-xl">Your response sheets have been recorded cleanly. Below is the full diagnostic recap showing your attempted and missed questions for review.</p>
+          </div>
+        </div>
+        
+        <!-- Action Row -->
+        <div class="flex items-center gap-3 w-full md:w-auto mt-4 md:mt-0">
+          <button onclick="resumePostReview()" class="flex-1 md:flex-none text-center px-5 py-3 hover:bg-slate-100 text-slate-755 font-semibold text-sm rounded-xl border border-slate-200 transition-all cursor-pointer">
+            Return to Exam
+          </button>
+          <button onclick="restartKmatExam()" class="flex-1 md:flex-none text-center px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl transition-all shadow-md shadow-indigo-100 cursor-pointer">
+            Retake Test
+          </button>
+        </div>
+      </div>
+
+      <!-- Statistics Recipient Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Card 1: Handled count -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+          <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center text-indigo-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-slate-900" id="stats-attempted">0</div>
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Total Attempted Questions</div>
+          </div>
+        </div>
+        <!-- Card 2: Unattempted count -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+          <div class="w-12 h-12 bg-amber-50 border border-amber-100 rounded-xl flex items-center justify-center text-amber-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-slate-900" id="stats-missing">0</div>
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Total Dropped / Skipped</div>
+          </div>
+        </div>
+        <!-- Card 3: Completion rate percentage -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+          <div class="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/></svg>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-slate-900" id="stats-rate">0%</div>
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Practice Completion Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Stats Breakdowns -->
+      <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+        <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 mb-5 flex items-center gap-2">
+          <span>Section-Wise Performance Snapshot</span>
+          <span class="text-xs font-normal text-slate-400">(Shows number of submitted responses per category)</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="section-review-progress-grid">
+          <!-- Dynamic section stats loaded here -->
+        </div>
+      </div>
+
+      <!-- Answer sheet review listing -->
+      <div class="flex flex-col gap-5">
+        <h3 class="text-lg font-bold text-slate-955 flex items-center justify-between">
+          <span>Question-by-Question Submission Log</span>
+          <span class="text-sm font-semibold text-slate-500">26 Questions Verified</span>
+        </h3>
+
+        <!-- Full dynamic diagnostic answer grid -->
+        <div id="diagnostic-log-container" class="flex flex-col gap-4">
+          <!-- List loaded on Finish Practice click -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Custom Confirmation Modal -->
+  <div id="confirm-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-xl border border-slate-100 transform transition-all duration-300 scale-95 opacity-0" id="confirm-modal-box">
+      <div class="flex items-center gap-3.5 mb-4 text-red-655">
+        <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-red-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900">Finish Practice Test?</h3>
+      </div>
+      <p id="confirm-modal-text" class="text-sm text-slate-500 mb-6 leading-relaxed">
+        Are you sure you want to finish your practice test?
+      </p>
+      <div class="flex items-center justify-end gap-3 font-semibold text-sm">
+        <button onclick="closeConfirmModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all cursor-pointer border border-slate-200">
+          Cancel
+        </button>
+        <button onclick="submitPracticeExamDirectly()" class="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all cursor-pointer">
+          Yes, Finish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Info Line -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400 font-medium tracking-wide">
+    <div class="max-w-7xl mx-auto px-4">
+      <div>KMAT Kerala Practice Interface built strictly with high performance Vanilla JS</div>
+      <div class="mt-1">All answers and attempts persist relative to local session. Total: 26 Mock Questions.</div>
+    </div>
+  </footer>
+
+  <!-- ============================================ -->
+  <!-- EXAM JAVASCRIPT SYSTEM ENGINE (Vanilla JS) -->
+  <!-- ============================================ -->
+  <script>
+    // ------------------------------------------
+    // 1. QUESTION STORAGE (ARRAY DECLARATION)
+    // ------------------------------------------
+    const questions = [
+      // Section 1: English
+      {
+        section: "English",
+        question: "Which word is an adjective in the sentence: “It was a difficult exam.”",
+        options: ["A) was", "B) exam", "C) difficult", "D) a"]
+      },
+      {
+        section: "English",
+        question: "Choose the antonym of “Brave”",
+        options: ["A) Strong", "B) Clever", "C) Cowardly", "D) Bold"]
+      },
+      {
+        section: "English",
+        question: "Choose the synonym of “Motivation.”",
+        options: ["A) Discouragement", "B) Inspiration", "C) Weakness", "D) Laziness"]
+      },
+      {
+        section: "English",
+        question: "Convert the sentence into Past Continuous Tense:<br><br><span class='italic text-slate-705 block border-l-2 border-indigo-500 pl-3 bg-indigo-50/20 py-2 rounded font-medium'>\"The boys are watching television.\"</span>",
+        options: [
+          "A) The boys watched television.",
+          "B) The boys were watching television.",
+          "C) The boys have watched television.",
+          "D) The boys will watch television."
+        ]
+      },
+      {
+        section: "English",
+        question: "Convert the sentence into Future Perfect Continuous Tense:<br><br><span class='italic text-slate-705 block border-l-2 border-indigo-500 pl-3 bg-indigo-50/20 py-2 rounded font-medium'>“I work in a company.”</span>",
+        options: [
+          "A) I will work in a company.",
+          "B) I will have worked in a company.",
+          "C) I will have been working in a company.",
+          "D) I am working in a company."
+        ]
+      },
+      
+      // Section 2: Mathematics
+      {
+        section: "Mathematics",
+        question: "A train travels 60 km in 2 hours. What is its speed?",
+        options: ["A) 20 km/hr", "B) 30 km/hr", "C) 40 km/hr", "D) 50 km/hr"]
+      },
+      {
+        section: "Mathematics",
+        question: "What is 20% of 200?",
+        options: ["A) 20", "B) 30", "C) 40", "D) 50"]
+      },
+      {
+        section: "Mathematics",
+        question: "If the cost price of a pen is ₹40 and the selling price is ₹50, what is the profit?",
+        options: ["A) ₹5", "B) ₹10", "C) ₹15", "D) ₹20"]
+      },
+      {
+        section: "Mathematics",
+        question: "What is the average of 10, 20, and 30?",
+        options: ["A) 15", "B) 20", "C) 25", "D) 30"]
+      },
+      {
+        section: "Mathematics",
+        question: "A shopkeeper gives a 10% discount on a shirt marked at ₹800. What is the selling price?",
+        options: ["A) ₹700", "B) ₹720", "C) ₹740", "D) ₹760"]
+      },
+      {
+        section: "Mathematics",
+        question: "A train 150 m long crosses a pole in 15 seconds. What is the speed of the train?",
+        options: ["A) 10 m/s", "B) 12 m/s", "C) 15 m/s", "D) 18 m/s"]
+      },
+
+      // Section 3: Logical Reasoning
+      {
+        section: "Logical Reasoning",
+        question: "In the following number sequence how many odd numbers are there that are immediately preceded by an odd number and immediately followed by an even number?<br><br><div class='font-mono bg-slate-50 border border-slate-200 text-slate-800 p-3.5 rounded-xl text-center tracking-widest text-sm select-all'>7 &nbsp; 8 &nbsp; 6 &nbsp; 5 &nbsp; 2 &nbsp; 4 &nbsp; 3 &nbsp; 18 &nbsp; 7 &nbsp; 9 &nbsp; 4 &nbsp; 6 &nbsp; 8 &nbsp; 3 &nbsp; 1 &nbsp; 4 &nbsp; 2 &nbsp; 7 &nbsp; 5 &nbsp; 6 &nbsp; 4 &nbsp; 8 &nbsp; 1 &nbsp; 3 &nbsp; 8 &nbsp; 9 &nbsp; 7 &nbsp; 2 &nbsp; 6 &nbsp; 4 &nbsp; 8 &nbsp; 3 &nbsp; 6 &nbsp; 5 &nbsp; 2</div>",
+        options: ["A) 7", "B) 6", "C) 8", "D) 5", "E) None"]
+      },
+      {
+        section: "Logical Reasoning",
+        question: "Bowl : Soup :: Plate : ?",
+        options: ["A) Spoon", "B) Coffee", "C) Rice", "D) Dish"]
+      },
+      {
+        section: "Logical Reasoning",
+        question: "Complete the series:<br><br><div class='font-mono bg-slate-50 border border-slate-200 text-slate-800 p-3.5 rounded-xl text-center tracking-widest text-sm select-all'>10, &nbsp; 8, &nbsp; 11, &nbsp; 9, &nbsp; 12, &nbsp; _____</div>",
+        options: ["A) 7", "B) 10", "C) 12", "D) 13"]
+      },
+      {
+        section: "Logical Reasoning",
+        question: "In certain code language HEART is written as BKLMP. The code word for NERVOUS will be:",
+        options: ["A) WLNTRID", "B) YIQOVBN", "C) WXOHVPM", "D) VKMSQHC"]
+      },
+      {
+        section: "Logical Reasoning",
+        question: "In certain code language CLAIM is written as DTNBZ. The code word for BORDER will be:",
+        options: ["A) LOVXJV", "B) LJOVXO", "C) LVOJXO", "D) VLJOXJ"]
+      },
+
+      // Section 4: General Knowledge and Current Affairs
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "A new initiative titled ‘Food Bank’ was launched in which Indian state to provide free food to the poor and needy during COVID lockdown?",
+        options: ["A) Assam", "B) Kerala", "C) Manipur", "D) Odisha"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Chak Hao, a variety of black rice, received GI tag from which state?",
+        options: ["A) Assam", "B) Sikkim", "C) Manipur", "D) Arunachal Pradesh"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Which Indian security force launched a robot named ‘Captain Arjun’ for medical screening?",
+        options: [
+          "A) Railway Protection Force",
+          "B) Central Industrial Security Force",
+          "C) Central Reserve Police Force",
+          "D) Border Security Force"
+        ]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Who headed the Health Ministry committee that recommended the Serological survey?",
+        options: ["A) V K Paul", "B) Harsh Vardhan", "C) Amitabh Kant", "D) V.K. Saraswat"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Which three countries decided to work together in 5G technology?",
+        options: [
+          "A) India, Israel, Russia",
+          "B) India, Russia and USA",
+          "C) India, Israel and USA",
+          "D) Israel, Russia and USA"
+        ]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Which ministry launched the Honorary Rank Promotion Scheme for retiring personnel of CAPFs and Assam Rifles?",
+        options: [
+          "A) Ministry of Defence",
+          "B) Ministry of Home Affairs",
+          "C) Ministry of Parliamentary Affairs",
+          "D) Ministry of Personnel, Public Grievances and Pensions"
+        ]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Where was the Mahila Sashaktikaran Maha Sammelan held on the occasion of the 300th birth anniversary of Queen Ahilyabai Holkar?",
+        options: ["A) Bhopal", "B) Varanasi", "C) Patna", "D) Ranchi"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Which is the world’s highest railway arch bridge inaugurated in India?",
+        options: ["A) Chenab Rail Bridge", "B) Pamban Bridge", "C) Howrah Bridge", "D) Brahmaputra Rail Bridge"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "What is the name of the survey launched on the NaMo App marking PM Narendra Modi’s 11 years in office?",
+        options: ["A) Jan Seva Survey", "B) Naya Bharat Poll", "C) NaMoConnect", "D) Jan Man Survey"]
+      },
+      {
+        section: "General Knowledge and Current Affairs",
+        question: "Aircraft Accident Investigation Bureau (AAIB) functions under which ministry?",
+        options: [
+          "A) Ministry of Home Affairs",
+          "B) Ministry of Civil Aviation",
+          "C) Ministry of Defence",
+          "D) Ministry of Science and Technology"
+        ]
+      }
+    ];
+
+    // ------------------------------------------
+    // 2. STATE VARIABLES
+    // ------------------------------------------
+    let currentQuestionIndex = 0;
+    
+    // answers structure: { index: selectedOptionValue, ... }
+    let answers = {}; 
+
+    // Dynamically retrieve unique sections
+    const sections = [...new Set(questions.map(q => q.section))];
+
+    // ------------------------------------------
+    // 3. INITIALIZATION CALL
+    // ------------------------------------------
+    window.onload = function() {
+      // Build top section navigation tabs
+      buildSectionTabs();
+      // Render first question
+      renderCurrentQuestion();
+      // Render Palette grid
+      renderQuestionPalette();
+      // Update general counter stats
+      updateGlobalStatus();
+    };
+
+    // ------------------------------------------
+    // 4. TAB NAVIGATION BUILDING
+    // ------------------------------------------
+    function buildSectionTabs() {
+      const tabsContainer = document.getElementById("section-tabs");
+      tabsContainer.innerHTML = "";
+      
+      sections.forEach(secName => {
+        const btn = document.createElement("button");
+        btn.id = `tab-${secName.replace(/\s+/g, '-')}`;
+        btn.innerHTML = secName;
+        // Styles based on active or inactive
+        btn.className = "flex-1 text-center min-w-[120px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer select-none text-slate-605 hover:text-slate-905 hover:bg-slate-50";
+        
+        // Find first question of this section
+        btn.onclick = () => {
+          const firstIndex = questions.findIndex(q => q.section === secName);
+          if (firstIndex !== -1) {
+            currentQuestionIndex = firstIndex;
+            renderCurrentQuestion();
+            renderQuestionPalette();
+          }
+        };
+        
+        tabsContainer.appendChild(btn);
+      });
+    }
+
+    // Update highlights on active section tab
+    function updateActiveSectionTab(activeSection) {
+      sections.forEach(secName => {
+        const tabElement = document.getElementById(`tab-${secName.replace(/\s+/g, '-')}`);
+        if (!tabElement) return;
+
+        if (secName === activeSection) {
+          tabElement.className = "flex-1 text-center min-w-[125px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl bg-indigo-600 text-white shadow-xs transition-all duration-150 cursor-pointer select-none";
+        } else {
+          tabElement.className = "flex-1 text-center min-w-[125px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl text-slate-505 hover:text-indigo-600 hover:bg-slate-50 transition-all duration-150 cursor-pointer select-none";
+        }
+      });
+    }
+
+    // ------------------------------------------
+    // 5. QUESTION RENDERING LOGIC
+    // ------------------------------------------
+    function renderCurrentQuestion() {
+      const q = questions[currentQuestionIndex];
+      const qNum = currentQuestionIndex + 1;
+      
+      // Update Badge details
+      document.getElementById("current-section-badge").innerText = q.section;
+      document.getElementById("question-index-label").innerText = `Question ${qNum} of ${questions.length}`;
+      
+      // Load current active page highlights for tabs
+      updateActiveSectionTab(q.section);
+
+      // Render Question Text
+      const qTextContainer = document.getElementById("question-text-container");
+      // Add transient anim
+      qTextContainer.classList.remove("question-anim");
+      void qTextContainer.offsetWidth; // Trigger reflow to restart css animation
+      qTextContainer.classList.add("question-anim");
+
+      // Set literal text + index prefix
+      qTextContainer.innerHTML = `<span class="text-indigo-600 font-mono font-bold select-none mr-1.5">${qNum}.</span> ${q.question}`;
+
+      // Render Question Options with custom UI matching radios
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+
+      const answeredVal = answers[currentQuestionIndex];
+
+      q.options.forEach((optionValue, idx) => {
+        const optionId = `opt-${idx}`;
+        const isSelected = answeredVal === optionValue;
+
+        const row = document.createElement("label");
+        row.htmlFor = optionId;
+        row.id = `row-${optionId}`;
+        row.className = `flex items-center gap-3.5 px-4 py-3.5 border border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 rounded-xl cursor-pointer transition-all duration-150 relative select-none ${isSelected ? 'option-checked' : ''}`;
+
+        // Create Custom circular check dot mock
+        const radioDot = document.createElement("div");
+        radioDot.id = `dot-${optionId}`;
+        radioDot.className = `w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-all duration-150 ${isSelected ? 'border-indigo-600 bg-indigo-600 text-white shadow-xs shadow-indigo-100' : 'border-slate-300 bg-white'}`;
+        radioDot.innerHTML = isSelected ? '<span class="w-2 h-2 rounded-full bg-white"></span>' : '';
+
+        // Native radio in background
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `option-group-${currentQuestionIndex}`;
+        input.id = optionId;
+        input.value = optionValue;
+        input.style.display = "none";
+        input.checked = isSelected;
+
+        input.onchange = function() {
+          selectOption(optionValue);
+        };
+
+        const optionTextSpan = document.createElement("span");
+        optionTextSpan.className = "text-sm sm:text-base font-medium text-slate-705 tracking-wide";
+        optionTextSpan.innerText = optionValue;
+
+        row.appendChild(input);
+        row.appendChild(radioDot);
+        row.appendChild(optionTextSpan);
+        optionsContainer.appendChild(row);
+      });
+
+      // Handle disabled button states
+      document.getElementById("btn-previous").disabled = currentQuestionIndex === 0;
+      document.getElementById("btn-previous").style.opacity = currentQuestionIndex === 0 ? "0.5" : "1";
+      document.getElementById("btn-previous").style.cursor = currentQuestionIndex === 0 ? "not-allowed" : "pointer";
+
+      // Toggle Next / Skip labeling if reached last question
+      const nextBtn = document.getElementById("btn-next");
+      if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.innerHTML = `Next 
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+        nextBtn.disabled = true;
+        nextBtn.style.opacity = "0.5";
+        nextBtn.style.cursor = "not-allowed";
+      } else {
+        nextBtn.innerHTML = `Next
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+        nextBtn.disabled = false;
+        nextBtn.style.opacity = "1";
+        nextBtn.style.cursor = "pointer";
+      }
+    }
+
+    // Selects and registers an option in our state
+    function selectOption(optionValue) {
+      answers[currentQuestionIndex] = optionValue;
+      renderCurrentQuestion();
+      renderQuestionPalette();
+      updateGlobalStatus();
+    }
+
+    // Clears response in state
+    function clearSelectedOption() {
+      if (answers.hasOwnProperty(currentQuestionIndex)) {
+        delete answers[currentQuestionIndex];
+        renderCurrentQuestion();
+        renderQuestionPalette();
+        updateGlobalStatus();
+      }
+    }
+
+    // ------------------------------------------
+    // 6. NAVIGATION LOGIC
+    // ------------------------------------------
+    function navigateQuestion(direction) {
+      const nextIndex = currentQuestionIndex + direction;
+      if (nextIndex >= 0 && nextIndex < questions.length) {
+        currentQuestionIndex = nextIndex;
+        renderCurrentQuestion();
+        renderQuestionPalette();
+      }
+    }
+
+    // ------------------------------------------
+    // 7. PALETTE LOGIC (GROUPED BY SECTIONS)
+    // ------------------------------------------
+    function renderQuestionPalette() {
+      const container = document.getElementById("palette-container");
+      container.innerHTML = "";
+
+      // For each section, filter the questions and build a small layout grouped by section
+      sections.forEach(secName => {
+        // Group wrapper
+        const sectionWrapper = document.createElement("div");
+        sectionWrapper.className = "flex flex-col gap-2 mt-1";
+
+        // Group Header
+        const header = document.createElement("div");
+        header.className = "text-xs font-semibold text-slate-505 flex justify-between items-center border-b border-slate-100 pb-1.5 mt-2";
+        
+        // Count how many are answered in this section
+        const sectionQuestions = [];
+        questions.forEach((q, idx) => {
+          if (q.section === secName) {
+            sectionQuestions.push({ q, idx });
+          }
+        });
+
+        const answeredInSection = sectionQuestions.filter(item => answers.hasOwnProperty(item.idx)).length;
+
+        header.innerHTML = `
+          <span class="truncate pr-2 font-medium text-slate-700">${secName}</span>
+          <span class="text-[10px] text-indigo-600 font-mono shrink-0 font-bold bg-indigo-50/50 border border-indigo-100 px-1.5 py-0.5 rounded-sm">${answeredInSection}/${sectionQuestions.length} done</span>
+        `;
+        sectionWrapper.appendChild(header);
+
+        // Grid for bubbles
+        const grid = document.createElement("div");
+        grid.className = "grid grid-cols-5 gap-2";
+
+        sectionQuestions.forEach((item) => {
+          const idx = item.idx;
+          const bubble = document.createElement("button");
+          bubble.innerText = idx + 1;
+          bubble.id = `palette-bubble-${idx}`;
+          
+          let colorClasses = "";
+          
+          if (idx === currentQuestionIndex) {
+            // Current Active question -> blue
+            colorClasses = "bg-blue-600 text-white font-bold ring-2 ring-blue-300 ring-offset-2";
+          } else if (answers.hasOwnProperty(idx)) {
+            // Attempted question -> green
+            colorClasses = "bg-emerald-500 hover:bg-emerald-600 text-white font-semibold";
+          } else {
+            // Unattempted question -> gray
+            colorClasses = "bg-slate-200 text-slate-705 hover:bg-slate-300 hover:text-slate-900 border border-slate-300/40";
+          }
+
+          bubble.className = `${colorClasses} w-full aspect-square flex items-center justify-center text-xs md:text-sm rounded-xl transition-all duration-150 cursor-pointer shadow-2xs font-mono font-medium`;
+          
+          bubble.onclick = () => {
+            currentQuestionIndex = idx;
+            renderCurrentQuestion();
+            renderQuestionPalette();
+          };
+
+          grid.appendChild(bubble);
+        });
+
+        sectionWrapper.appendChild(grid);
+        container.appendChild(sectionWrapper);
+      });
+    }
+
+    // Updates global persistent progress bars and count percentage indicators
+    function updateGlobalStatus() {
+      const attemptedCount = Object.keys(answers).length;
+      const totalCount = questions.length;
+      const percentValue = Math.round((attemptedCount / totalCount) * 100);
+
+      document.getElementById("txt-percentage-complete").innerText = `${percentValue}% (${attemptedCount} / ${totalCount})`;
+      document.getElementById("bar-progress").style.width = `${percentValue}%`;
+    }
+
+    // ------------------------------------------
+    // 8. REVIEW SECTION & DIALECT SUMMARY LOGIC (MODAL BACKED)
+    // ------------------------------------------
+    let currentConfirmAction = null;
+
+    function openCustomConfirm(message, actionCallback) {
+      document.getElementById("confirm-modal-text").innerHTML = message;
+      currentConfirmAction = actionCallback;
+      
+      const modal = document.getElementById("confirm-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      
+      setTimeout(() => {
+        const box = document.getElementById("confirm-modal-box");
+        box.classList.remove("scale-95", "opacity-0");
+        box.classList.add("scale-100", "opacity-100");
+      }, 50);
+    }
+
+    function closeConfirmModal() {
+      const box = document.getElementById("confirm-modal-box");
+      box.classList.remove("scale-100", "opacity-100");
+      box.classList.add("scale-95", "opacity-0");
+      
+      setTimeout(() => {
+        const modal = document.getElementById("confirm-modal");
+        modal.classList.remove("flex");
+        modal.classList.add("hidden");
+      }, 150);
+    }
+
+    function submitPracticeExamDirectly() {
+      closeConfirmModal();
+      if (currentConfirmAction) {
+        currentConfirmAction();
+      }
+    }
+
+    function confirmFinishPractice() {
+      const attempted = Object.keys(answers).length;
+      const total = questions.length;
+      const missing = total - attempted;
+      
+      let confirmMsg = `You have completed <strong>${attempted}</strong> out of ${total} questions.`;
+      if (missing > 0) {
+        confirmMsg += `<br><br><span class="text-amber-600 font-semibold">Warning:</span> You have left <strong>${missing}</strong> questions unanswered. Are you sure you want to proceed and view your submissions details?`;
+      } else {
+        confirmMsg += `<br><br>All questions have been answered. Ready to view your session recap details?`;
+      }
+      
+      openCustomConfirm(confirmMsg, () => {
+        displayReviewDashboard();
+      });
+    }
+
+    function displayReviewDashboard() {
+      // Hide active test elements, show review elements
+      document.getElementById("test-container").classList.add("hidden");
+      document.getElementById("review-container").classList.remove("hidden");
+      
+      // Auto scroll to top of review content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Calculate general aggregate metrics
+      const totalCount = questions.length;
+      const attemptedCount = Object.keys(answers).length;
+      const missingCount = totalCount - attemptedCount;
+      const ratePercentage = Math.round((attemptedCount / totalCount) * 100);
+
+      document.getElementById("stats-attempted").innerText = attemptedCount;
+      document.getElementById("stats-missing").innerText = missingCount;
+      document.getElementById("stats-rate").innerText = `${ratePercentage}%`;
+
+      // Build Section Breakdown Stats inside Review Section
+      buildSectionReviewProgress();
+
+      // Render comprehensive details review list (without scores or correct indicators!)
+      buildDiagnosticSheet();
+    }
+
+    // Builds dynamic progress list per category
+    function buildSectionReviewProgress() {
+      const grid = document.getElementById("section-review-progress-grid");
+      grid.innerHTML = "";
+
+      sections.forEach(secTitle => {
+        // Find total questions in section
+        const secQuestions = questions.filter(q => q.section === secTitle);
+        const sectionTotal = secQuestions.length;
+        
+        // Find how many were answered by finding matching index
+        let answeredInSec = 0;
+        questions.forEach((q, idx) => {
+          if (q.section === secTitle && answers.hasOwnProperty(idx)) {
+            answeredInSec++;
+          }
+        });
+
+        const percent = Math.round((answeredInSec / sectionTotal) * 100);
+
+        const card = document.createElement("div");
+        card.className = "p-4 border border-slate-100 rounded-xl bg-slate-50/50 flex flex-col gap-2.5";
+        
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-bold text-slate-800 tracking-wide truncate pr-2">${secTitle}</span>
+            <span class="text-xs font-mono font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-md shrink-0">${answeredInSec}/${sectionTotal}</span>
+          </div>
+          <div class="w-full bg-slate-205 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-indigo-600 h-full transition-all duration-300" style="width: ${percent}%"></div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Render detailed list of submitted responses
+    function buildDiagnosticSheet() {
+      const logContainer = document.getElementById("diagnostic-log-container");
+      logContainer.innerHTML = "";
+
+      questions.forEach((q, idx) => {
+        const hasAnswered = answers.hasOwnProperty(idx);
+        const userSelection = answers[idx];
+
+        const card = document.createElement("div");
+        card.className = "bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-2xs flex flex-col gap-4 relative overflow-hidden";
+        
+        // Section indicator tag
+        let statusBadgeHTML = "";
+        if (hasAnswered) {
+          statusBadgeHTML = `
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-705 border border-emerald-100 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-505"></span>
+              Attempted
+            </span>`;
+        } else {
+          statusBadgeHTML = `
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-rose-50 text-rose-705 border border-rose-100 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-505 animate-pulse"></span>
+              Unanswered
+            </span>`;
+        }
+
+        card.innerHTML = `
+          <!-- Info Row -->
+          <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-dashed border-slate-100 pb-2">
+            <span class="text-xs font-bold text-slate-400 font-mono tracking-wider uppercase">${q.section} &nbsp;|&nbsp; Question ${idx + 1}</span>
+            ${statusBadgeHTML}
+          </div>
+
+          <!-- Question Context -->
+          <div class="text-base font-semibold text-slate-900 leading-relaxed mt-1">
+            ${idx + 1}. ${q.question}
+          </div>
+
+          <!-- Answer Options Details Matrix -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+            ${q.options.map(option => {
+              const matchedSelected = userSelection === option;
+              let optionClass = "border-slate-100 bg-slate-50/50 text-slate-600";
+              let radioCircleClass = "border-slate-300";
+              let internalCheck = "";
+              
+              if (matchedSelected) {
+                optionClass = "border-indigo-200 bg-indigo-50/30 font-semibold text-indigo-700 shadow-3xs";
+                radioCircleClass = "border-indigo-600 bg-indigo-600 text-white";
+                internalCheck = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
+              }
+              
+              return `
+                <div class="flex items-center gap-2.5 p-3 border rounded-lg text-xs md:text-sm select-none truncate ${optionClass}">
+                  <span class="w-4 h-4 rounded-full border shrink-0 flex items-center justify-center ${radioCircleClass}">${internalCheck}</span>
+                  <span class="truncate pr-1">${option}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Highlight Submitted Detail -->
+          <div class="p-3 bg-slate-50 border border-slate-100/80 rounded-xl text-xs flex items-center gap-2 text-slate-500">
+            <span class="font-bold uppercase text-slate-400 tracking-wide font-mono shrink-0">Selected Answer:</span>
+            <span class="font-semibold text-slate-700 truncate ${!hasAnswered ? 'italic text-red-500' : ''}">
+              ${hasAnswered ? userSelection : 'None — Question Skipped'}
+            </span>
+          </div>
+        `;
+
+        logContainer.appendChild(card);
+      });
+    }
+
+    // Toggle Back to active test
+    function resumePostReview() {
+      document.getElementById("review-container").classList.add("hidden");
+      document.getElementById("test-container").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Complete Reset Exam Storage
+    function restartKmatExam() {
+      const resetMsg = "Are you sure you want to reset all responses and retake this practice test from question 1? Your current selections will be cleared.";
+      openCustomConfirm(resetMsg, () => {
+        answers = {};
+        currentQuestionIndex = 0;
+        
+        document.getElementById("review-container").classList.add("hidden");
+        document.getElementById("test-container").classList.remove("hidden");
+
+        renderCurrentQuestion();
+        renderQuestionPalette();
+        updateGlobalStatus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+
+</body>
+</html>
