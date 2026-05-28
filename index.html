@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KMAT Kerala Practice Test — MBA Entrance Practice Console</title>
+  <title>MSNIMT KMAT Mock Test — MBA Entrance Practice Console</title>
   
   <!-- Google Fonts for Editorial & Tech Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,10 +77,10 @@
         <!-- Logo and Titles -->
         <div class="flex items-center gap-4">
           <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-800 flex items-center justify-center font-bold text-white text-xl shadow-md shadow-indigo-200">
-            K
+            M
           </div>
           <div class="text-center sm:text-left">
-            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">KMAT Kerala Practice Test</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">MSNIMT KMAT Mock Test</h1>
             <p class="text-sm text-slate-500 font-medium tracking-wide flex items-center gap-1.5 justify-center sm:justify-start">
               <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
               MBA Entrance Practice Questions
@@ -168,7 +168,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-semibold mb-2">
               <span class="text-slate-500 uppercase tracking-wide">Overall Completed</span>
-              <span id="txt-percentage-complete" class="text-indigo-600">0% (0 / 30)</span>
+              <span id="txt-percentage-complete" class="text-indigo-600">0% (0 / 26)</span>
             </div>
             <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
               <div id="bar-progress" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
@@ -196,7 +196,7 @@
         <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 flex flex-col gap-4">
           <div class="flex items-center justify-between">
             <h2 class="text-base font-bold text-slate-900">Question Palette</h2>
-            <span id="palette-indicator" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">30 Total</span>
+            <span id="palette-indicator" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">26 Total</span>
           </div>
 
           <p class="text-xs text-slate-400">Click a number bubble to jump directly to that question during the exam.</p>
@@ -221,7 +221,7 @@
             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
           </div>
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">KMAT Practice Completed!</h2>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">MSNIMT KMAT Mock Test Completed!</h2>
             <p class="text-slate-500 mt-1 max-w-xl">Your response sheets have been recorded cleanly. Below is the full diagnostic recap showing your attempted and missed questions for review.</p>
           </div>
         </div>
@@ -250,7 +250,7 @@
           </div>
         </div>
         <!-- Card 2: Unattempted count -->
-        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-xs p-5 flex items-center gap-4">
           <div class="w-12 h-12 bg-amber-50 border border-amber-100 rounded-xl flex items-center justify-center text-amber-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
           </div>
@@ -327,7 +327,7 @@
   <!-- Footer Info Line -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400 font-medium tracking-wide">
     <div class="max-w-7xl mx-auto px-4">
-      <div>KMAT Kerala Practice Interface built strictly with high performance Vanilla JS</div>
+      <div>MSNIMT KMAT Mock Test Interface built strictly with high performance Vanilla JS</div>
       <div id="footer-total-questions" class="mt-1">All answers and attempts persist relative to local session. Total: 30 Mock Questions.</div>
     </div>
   </footer>
@@ -930,74 +930,97 @@
         card.innerHTML = `
           <div class="flex items-center justify-between">
             <span class="text-sm font-bold text-slate-800 tracking-wide truncate pr-2">${secTitle}</span>
-            <span class="text-xs font-mono font-semibold text-indigo-600 shrink-0 bg-white border border-slate-100/85 px-1.5 py-0.5 rounded">${answeredInSec}/${sectionTotal}</span>
+            <span class="text-xs font-mono font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-md shrink-0">${answeredInSec}/${sectionTotal}</span>
           </div>
           <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-            <div class="bg-indigo-600 h-full rounded-full" style="width: ${percent}%"></div>
+            <div class="bg-indigo-600 h-full transition-all duration-300" style="width: ${percent}%"></div>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // Generates a descriptive report list of each question submission state
+    // Render detailed list of submitted responses
     function buildDiagnosticSheet() {
-      const container = document.getElementById("diagnostic-log-container");
-      container.innerHTML = "";
+      const logContainer = document.getElementById("diagnostic-log-container");
+      logContainer.innerHTML = "";
 
       questions.forEach((q, idx) => {
-        const itemLayout = document.createElement("div");
-        itemLayout.className = "bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-2xs flex flex-col gap-4";
+        const hasAnswered = answers.hasOwnProperty(idx);
+        const userSelection = answers[idx];
 
-        const selectedVal = answers[idx];
-        const isAttempted = answers.hasOwnProperty(idx);
-
-        let statusBadgeHtml = "";
-
-        if (isAttempted) {
-          statusBadgeHtml = `
-            <span class="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold uppercase rounded-full tracking-wide">
+        const card = document.createElement("div");
+        card.className = "bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-2xs flex flex-col gap-4 relative overflow-hidden";
+        
+        // Section indicator tag
+        let statusBadgeHTML = "";
+        if (hasAnswered) {
+          statusBadgeHTML = `
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               Attempted
-            </span>
-          `;
+            </span>`;
         } else {
-          statusBadgeHtml = `
-            <span class="flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-100 text-amber-700 text-xs font-bold uppercase rounded-full tracking-wide">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              Not Answered
-            </span>
-          `;
+          statusBadgeHTML = `
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-rose-50 text-rose-700 border border-rose-100 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+              Unanswered
+            </span>`;
         }
 
-        itemLayout.innerHTML = `
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md">Q${idx + 1}</span>
-              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">${q.section}</span>
-            </div>
-            ${statusBadgeHtml}
+        card.innerHTML = `
+          <!-- Info Row -->
+          <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-dashed border-slate-100 pb-2">
+            <span class="text-xs font-bold text-slate-400 font-mono tracking-wider uppercase">${q.section} &nbsp;|&nbsp; Question ${idx + 1}</span>
+            ${statusBadgeHTML}
           </div>
 
-          <p class="text-sm md:text-base font-semibold text-slate-800 leading-relaxed">${q.question}</p>
+          <!-- Question Context -->
+          <div class="text-base font-semibold text-slate-900 leading-relaxed mt-1">
+            ${idx + 1}. ${q.question}
+          </div>
 
-          <div class="text-xs md:text-sm text-slate-500 bg-slate-50/50 rounded-xl p-3 border border-slate-100/60 font-medium">
-            <span class="text-slate-400 font-mono text-[11px] block uppercase font-bold tracking-wider mb-1">Your Submission:</span>
-            <span class="${isAttempted ? 'text-slate-800 font-semibold' : 'text-slate-400 italic'}">${isAttempted ? selectedVal : 'No Option Selected'}</span>
+          <!-- Answer Options Details Matrix -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+            ${q.options.map(option => {
+              const matchedSelected = userSelection === option;
+              let optionClass = "border-slate-100 bg-slate-50/50 text-slate-600";
+              let radioCircleClass = "border-slate-300";
+              let internalCheck = "";
+              
+              if (matchedSelected) {
+                optionClass = "border-indigo-200 bg-indigo-50/30 font-semibold text-indigo-700 shadow-3xs";
+                radioCircleClass = "border-indigo-600 bg-indigo-600 text-white";
+                internalCheck = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
+              }
+              
+              return `
+                <div class="flex items-center gap-2.5 p-3 border rounded-lg text-xs md:text-sm select-none truncate ${optionClass}">
+                  <span class="w-4 h-4 rounded-full border shrink-0 flex items-center justify-center ${radioCircleClass}">${internalCheck}</span>
+                  <span class="truncate pr-1">${option}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Highlight Submitted Detail -->
+          <div class="p-3 bg-slate-50 border border-slate-100/80 rounded-xl text-xs flex items-center gap-2 text-slate-500">
+            <span class="font-bold uppercase text-slate-400 tracking-wide font-mono shrink-0">Selected Answer:</span>
+            <span class="font-semibold text-slate-700 truncate ${!hasAnswered ? 'italic text-red-500' : ''}">
+              ${hasAnswered ? userSelection : 'None — Question Skipped'}
+            </span>
           </div>
         `;
-        container.appendChild(itemLayout);
+
+        logContainer.appendChild(card);
       });
     }
 
-    // Handles backtracking out of review mode to live testing
+    // Toggle Back to active test
     function resumePostReview() {
       document.getElementById("review-container").classList.add("hidden");
       document.getElementById("test-container").classList.remove("hidden");
-      
-      renderCurrentQuestion();
-      renderQuestionPalette();
-      updateGlobalStatus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Complete Reset Exam Storage
