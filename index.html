@@ -8,7 +8,7 @@
   <!-- Google Fonts for Editorial & Tech Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;500;600;700&family=JetBrains+Mono:wght=400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS Via Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -87,7 +87,6 @@
             </p>
           </div>
         </div>
-
       </div>
     </div>
   </header>
@@ -169,7 +168,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-semibold mb-2">
               <span class="text-slate-500 uppercase tracking-wide">Overall Completed</span>
-              <span id="txt-percentage-complete" class="text-indigo-600">0% (0 / 26)</span>
+              <span id="txt-percentage-complete" class="text-indigo-600">0% (0 / 30)</span>
             </div>
             <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
               <div id="bar-progress" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
@@ -197,7 +196,7 @@
         <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 flex flex-col gap-4">
           <div class="flex items-center justify-between">
             <h2 class="text-base font-bold text-slate-900">Question Palette</h2>
-            <span id="palette-indicator" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">26 Total</span>
+            <span id="palette-indicator" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">30 Total</span>
           </div>
 
           <p class="text-xs text-slate-400">Click a number bubble to jump directly to that question during the exam.</p>
@@ -241,7 +240,7 @@
       <!-- Statistics Recipient Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Card 1: Handled count -->
-        <div class="bg-white border border-slate-250 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
           <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center text-indigo-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -251,7 +250,7 @@
           </div>
         </div>
         <!-- Card 2: Unattempted count -->
-        <div class="bg-white border border-slate-250 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
           <div class="w-12 h-12 bg-amber-50 border border-amber-100 rounded-xl flex items-center justify-center text-amber-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
           </div>
@@ -261,7 +260,7 @@
           </div>
         </div>
         <!-- Card 3: Completion rate percentage -->
-        <div class="bg-white border border-slate-250 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
           <div class="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/></svg>
           </div>
@@ -287,7 +286,7 @@
       <div class="flex flex-col gap-5">
         <h3 class="text-lg font-bold text-slate-950 flex items-center justify-between">
           <span>Question-by-Question Submission Log</span>
-          <span class="text-sm font-semibold text-slate-500">26 Questions Verified</span>
+          <span id="diagnostic-header-count" class="text-sm font-semibold text-slate-500">30 Questions Verified</span>
         </h3>
 
         <!-- Full dynamic diagnostic answer grid -->
@@ -329,7 +328,7 @@
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400 font-medium tracking-wide">
     <div class="max-w-7xl mx-auto px-4">
       <div>KMAT Kerala Practice Interface built strictly with high performance Vanilla JS</div>
-      <div class="mt-1">All answers and attempts persist relative to local session. Total: 26 Mock Questions.</div>
+      <div id="footer-total-questions" class="mt-1">All answers and attempts persist relative to local session. Total: 30 Mock Questions.</div>
     </div>
   </footer>
 
@@ -377,17 +376,47 @@
           "D) I am working in a company."
         ]
       },
+      {
+        section: "English",
+        question: "Choose the synonym of <b>“Rapid”</b>",
+        options: ["A) Slow", "B) Quick", "C) Weak", "D) Silent"]
+      },
+      {
+        section: "English",
+        question: "Complete the sentence with the appropriate verb form:<br><br><span class='italic text-slate-705 block border-l-2 border-indigo-500 pl-3 bg-indigo-50/20 py-2 rounded font-medium'>“If I had studied harder, I ______ the exam.”</span>",
+        options: ["A) pass", "B) would pass", "C) would have passed", "D) passed"]
+      },
+      {
+        section: "English",
+        question: "Read the passage carefully and answer the question below:<br><br><blockquote class='block bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-xl text-slate-700 italic mb-4 text-sm leading-relaxed'>“Success in life does not come easily. It requires hard work, determination, patience, and confidence. Many successful people faced failures before achieving their goals. Instead of giving up, they learned from their mistakes and continued their efforts. Failure should not be considered the end of life; rather, it should be treated as a stepping stone to success. Positive thinking and continuous effort help people overcome difficulties and achieve their dreams.”</blockquote><b>According to the passage, failure should be treated as:</b>",
+        options: [
+          "A) the end of life",
+          "B) a punishment",
+          "C) a stepping stone to success",
+          "D) unnecessary"
+        ]
+      },
+      {
+        section: "English",
+        question: "Arrange the jumbled sentences in the correct logical order:<br><br><div class='bg-slate-50 border border-slate-200 p-3.5 rounded-xl font-medium text-slate-700 space-y-1 text-sm'><p>1. He entered the room.</p><p>2. He switched on the light.</p><p>3. The room was dark.</p><p>4. He sat on the chair.</p></div>",
+        options: [
+          "A) 1, 3, 2, 4",
+          "B) 3, 1, 2, 4",
+          "C) 1, 2, 3, 4",
+          "D) 4, 3, 2, 1"
+        ]
+      },
+      {
+        section: "English",
+        question: "Fill in the blank with the suitable preposition:<br><br><span class='italic text-slate-705 block border-l-2 border-indigo-500 pl-3 bg-indigo-50/20 py-2 rounded font-medium'>“Hard work always leads ______ success.”</span>",
+        options: ["A) for", "B) into", "C) to", "D) with"]
+      },
       
       // Section 2: Mathematics
       {
         section: "Mathematics",
         question: "A train travels 60 km in 2 hours. What is its speed?",
         options: ["A) 20 km/hr", "B) 30 km/hr", "C) 40 km/hr", "D) 50 km/hr"]
-      },
-      {
-        section: "Mathematics",
-        question: "What is 20% of 200?",
-        options: ["A) 20", "B) 30", "C) 40", "D) 50"]
       },
       {
         section: "Mathematics",
@@ -547,7 +576,7 @@
         btn.id = `tab-${secName.replace(/\s+/g, '-')}`;
         btn.innerHTML = secName;
         // Styles based on active or inactive
-        btn.className = "flex-1 text-center min-w-[124px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer select-none text-slate-600 hover:text-slate-900 hover:bg-slate-50";
+        btn.className = "flex-1 text-center min-w-[120px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer select-none text-slate-600 hover:text-slate-900 hover:bg-slate-50";
         
         // Find first question of this section
         btn.onclick = () => {
@@ -570,9 +599,9 @@
         if (!tabElement) return;
 
         if (secName === activeSection) {
-          tabElement.className = "flex-1 text-center min-w-[124px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl bg-indigo-600 text-white shadow-xs transition-all duration-150 cursor-pointer select-none";
+          tabElement.className = "flex-1 text-center min-w-[125px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl bg-indigo-600 text-white shadow-xs transition-all duration-150 cursor-pointer select-none";
         } else {
-          tabElement.className = "flex-1 text-center min-w-[124px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl text-slate-550 hover:text-indigo-600 hover:bg-slate-50 transition-all duration-150 cursor-pointer select-none";
+          tabElement.className = "flex-1 text-center min-w-[125px] px-4 py-2 text-xs md:text-sm font-semibold rounded-xl text-slate-505 hover:text-indigo-600 hover:bg-slate-50 transition-all duration-150 cursor-pointer select-none";
         }
       });
     }
@@ -777,6 +806,21 @@
 
       document.getElementById("txt-percentage-complete").innerText = `${percentValue}% (${attemptedCount} / ${totalCount})`;
       document.getElementById("bar-progress").style.width = `${percentValue}%`;
+
+      const paletteIndicator = document.getElementById("palette-indicator");
+      if (paletteIndicator) {
+        paletteIndicator.innerText = `${totalCount} Total`;
+      }
+
+      const diagHeader = document.getElementById("diagnostic-header-count");
+      if (diagHeader) {
+        diagHeader.innerText = `${totalCount} Questions Verified`;
+      }
+
+      const footerLabel = document.getElementById("footer-total-questions");
+      if (footerLabel) {
+        footerLabel.innerText = `All answers and attempts persist relative to local session. Total: ${totalCount} Mock Questions.`;
+      }
     }
 
     // ------------------------------------------
@@ -886,97 +930,74 @@
         card.innerHTML = `
           <div class="flex items-center justify-between">
             <span class="text-sm font-bold text-slate-800 tracking-wide truncate pr-2">${secTitle}</span>
-            <span class="text-xs font-mono font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-md shrink-0">${answeredInSec}/${sectionTotal}</span>
+            <span class="text-xs font-mono font-semibold text-indigo-600 shrink-0 bg-white border border-slate-100/85 px-1.5 py-0.5 rounded">${answeredInSec}/${sectionTotal}</span>
           </div>
           <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-            <div class="bg-indigo-600 h-full transition-all duration-300" style="width: ${percent}%"></div>
+            <div class="bg-indigo-600 h-full rounded-full" style="width: ${percent}%"></div>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // Render detailed list of submitted responses
+    // Generates a descriptive report list of each question submission state
     function buildDiagnosticSheet() {
-      const logContainer = document.getElementById("diagnostic-log-container");
-      logContainer.innerHTML = "";
+      const container = document.getElementById("diagnostic-log-container");
+      container.innerHTML = "";
 
       questions.forEach((q, idx) => {
-        const hasAnswered = answers.hasOwnProperty(idx);
-        const userSelection = answers[idx];
+        const itemLayout = document.createElement("div");
+        itemLayout.className = "bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-2xs flex flex-col gap-4";
 
-        const card = document.createElement("div");
-        card.className = "bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-2xs flex flex-col gap-4 relative overflow-hidden";
-        
-        // Section indicator tag
-        let statusBadgeHTML = "";
-        if (hasAnswered) {
-          statusBadgeHTML = `
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full">
+        const selectedVal = answers[idx];
+        const isAttempted = answers.hasOwnProperty(idx);
+
+        let statusBadgeHtml = "";
+
+        if (isAttempted) {
+          statusBadgeHtml = `
+            <span class="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold uppercase rounded-full tracking-wide">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               Attempted
-            </span>`;
+            </span>
+          `;
         } else {
-          statusBadgeHTML = `
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-rose-50 text-rose-700 border border-rose-100 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-              Unanswered
-            </span>`;
+          statusBadgeHtml = `
+            <span class="flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-100 text-amber-700 text-xs font-bold uppercase rounded-full tracking-wide">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              Not Answered
+            </span>
+          `;
         }
 
-        card.innerHTML = `
-          <!-- Info Row -->
-          <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-dashed border-slate-100 pb-2">
-            <span class="text-xs font-bold text-slate-400 font-mono tracking-wider uppercase">${q.section} &nbsp;|&nbsp; Question ${idx + 1}</span>
-            ${statusBadgeHTML}
+        itemLayout.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md">Q${idx + 1}</span>
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">${q.section}</span>
+            </div>
+            ${statusBadgeHtml}
           </div>
 
-          <!-- Question Context -->
-          <div class="text-base font-semibold text-slate-900 leading-relaxed mt-1">
-            ${idx + 1}. ${q.question}
-          </div>
+          <p class="text-sm md:text-base font-semibold text-slate-800 leading-relaxed">${q.question}</p>
 
-          <!-- Answer Options Details Matrix -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
-            ${q.options.map(option => {
-              const matchedSelected = userSelection === option;
-              let optionClass = "border-slate-100 bg-slate-50/50 text-slate-600";
-              let radioCircleClass = "border-slate-300";
-              let internalCheck = "";
-              
-              if (matchedSelected) {
-                optionClass = "border-indigo-200 bg-indigo-50/30 font-semibold text-indigo-700 shadow-3xs";
-                radioCircleClass = "border-indigo-600 bg-indigo-600 text-white";
-                internalCheck = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
-              }
-              
-              return `
-                <div class="flex items-center gap-2.5 p-3 border rounded-lg text-xs md:text-sm select-none truncate ${optionClass}">
-                  <span class="w-4 h-4 rounded-full border shrink-0 flex items-center justify-center ${radioCircleClass}">${internalCheck}</span>
-                  <span class="truncate pr-1">${option}</span>
-                </div>
-              `;
-            }).join('')}
-          </div>
-
-          <!-- Highlight Submitted Detail -->
-          <div class="p-3 bg-slate-50 border border-slate-100/80 rounded-xl text-xs flex items-center gap-2 text-slate-500">
-            <span class="font-bold uppercase text-slate-400 tracking-wide font-mono shrink-0">Selected Answer:</span>
-            <span class="font-semibold text-slate-700 truncate ${!hasAnswered ? 'italic text-red-500' : ''}">
-              ${hasAnswered ? userSelection : 'None — Question Skipped'}
-            </span>
+          <div class="text-xs md:text-sm text-slate-500 bg-slate-50/50 rounded-xl p-3 border border-slate-100/60 font-medium">
+            <span class="text-slate-400 font-mono text-[11px] block uppercase font-bold tracking-wider mb-1">Your Submission:</span>
+            <span class="${isAttempted ? 'text-slate-800 font-semibold' : 'text-slate-400 italic'}">${isAttempted ? selectedVal : 'No Option Selected'}</span>
           </div>
         `;
-
-        logContainer.appendChild(card);
+        container.appendChild(itemLayout);
       });
     }
 
-    // Toggle Back to active test
+    // Handles backtracking out of review mode to live testing
     function resumePostReview() {
       document.getElementById("review-container").classList.add("hidden");
       document.getElementById("test-container").classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      renderCurrentQuestion();
+      renderQuestionPalette();
+      updateGlobalStatus();
     }
 
     // Complete Reset Exam Storage
