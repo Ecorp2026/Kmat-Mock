@@ -73,19 +73,14 @@
   <!-- Header -->
   <header id="exam-header" class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between py-4 gap-4">
-        <!-- Logo and Titles -->
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-800 flex items-center justify-center font-bold text-white text-xl shadow-md shadow-indigo-200">
-            M
-          </div>
-          <div class="text-center sm:text-left">
-            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">MSNIMT KMAT Mock Test</h1>
-            <p class="text-sm text-slate-500 font-medium tracking-wide flex items-center gap-1.5 justify-center sm:justify-start">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-              MBA Entrance Practice Questions
-            </p>
-          </div>
+      <div class="text-center py-5">
+        <!-- Centered Titles -->
+        <div class="inline-flex flex-col items-center">
+          <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">MSNIMT KMAT Mock Test</h1>
+          <p class="text-sm text-slate-500 font-medium tracking-wide flex items-center gap-1.5 justify-center mt-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            MBA Entrance Practice Questions
+          </p>
         </div>
       </div>
     </div>
@@ -250,7 +245,7 @@
           </div>
         </div>
         <!-- Card 2: Unattempted count -->
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-xs p-5 flex items-center gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex items-center gap-4">
           <div class="w-12 h-12 bg-amber-50 border border-amber-100 rounded-xl flex items-center justify-center text-amber-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
           </div>
@@ -302,7 +297,7 @@
   <!-- Custom Confirmation Modal -->
   <div id="confirm-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-xl border border-slate-100 transform transition-all duration-300 scale-95 opacity-0" id="confirm-modal-box">
-      <div class="flex items-center gap-3.5 mb-4 text-red-650">
+      <div class="flex items-center gap-3.5 mb-4 text-red-655">
         <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-red-600">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
@@ -862,6 +857,7 @@
       }
     }
 
+    // Alert completion status and summarize
     function confirmFinishPractice() {
       const attempted = Object.keys(answers).length;
       const total = questions.length;
@@ -984,7 +980,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
             ${q.options.map(option => {
               const matchedSelected = userSelection === option;
-              let optionClass = "border-slate-100 bg-slate-50/50 text-slate-600";
+              let optionClass = "border-slate-105 bg-slate-50/50 text-slate-600";
               let radioCircleClass = "border-slate-300";
               let internalCheck = "";
               
@@ -1004,9 +1000,9 @@
           </div>
 
           <!-- Highlight Submitted Detail -->
-          <div class="p-3 bg-slate-50 border border-slate-100/80 rounded-xl text-xs flex items-center gap-2 text-slate-500">
+          <div class="p-3 bg-slate-50 border border-slate-100/80 rounded-xl text-xs flex items-center gap-2 text-slate-505">
             <span class="font-bold uppercase text-slate-400 tracking-wide font-mono shrink-0">Selected Answer:</span>
-            <span class="font-semibold text-slate-700 truncate ${!hasAnswered ? 'italic text-red-500' : ''}">
+            <span class="font-semibold text-slate-707 truncate ${!hasAnswered ? 'italic text-red-500' : ''}">
               ${hasAnswered ? userSelection : 'None — Question Skipped'}
             </span>
           </div>
